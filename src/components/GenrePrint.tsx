@@ -9,7 +9,6 @@ declare global {
 
 export default function CategoryPrint(props: { category: number }) {
 	const [printed, setPrinted] = useState('')
-
 	useEffect(() => {
 		if (typeof window.genre_cache !== 'undefined') {
 			setPrinted(window.genre_cache[props.category])

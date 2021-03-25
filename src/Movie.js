@@ -30,10 +30,9 @@ export default function Home() {
 
 	const stars = []
 
-	for (let i = 0; i < movie.vote_average / 2; i++) {
+	for (let i = 0; i < movie.vote_average / 4; i++) {
 		stars.push(<Star size={20}/>)
 	}
-
 	return <>
 		<section className={styles.container}>
 			<img
@@ -43,7 +42,8 @@ export default function Home() {
 			/>
 			<h2>{ movie.title }</h2>
 			<div className={styles.details}>
-				{ stars }
+				<h3>Durée: {convertMinutes(movie.runtime)}</h3>
+				<span className={styles.rating}>{ stars}</span>
 				<h3>{ movie.tagline }</h3>
 				<p>{ movie.overview }</p>
 				<span><a href={movie.homepage} target="_blank" rel="noreferrer">Site officiel</a></span><br/>
@@ -51,4 +51,12 @@ export default function Home() {
 			</div>
 		</section>
 	</>
+}
+
+const convertMinutes = (mins) => {
+	let h = Math.floor(mins / 60);
+	let m = mins % 60;
+	h = h < 10 ?  h : h;
+	m = m < 10 ?  m : m;
+	return `${h}h${m}`;
 }

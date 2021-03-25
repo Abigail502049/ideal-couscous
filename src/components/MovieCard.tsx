@@ -10,6 +10,7 @@ interface Movie {
 	original_language: string
 	release_date: string
 	genre_ids: number[]
+	runtime: number
 	popularity: number
 	vote_count: number
 	vote_average: number
@@ -25,7 +26,8 @@ export default function MovieCard({ movie }: { movie: Movie }) {
 		/>
 		<h2>{ movie.title }</h2>
 		<span>
-			{ movie.release_date.split('-')[0] } - { Math.round(movie.vote_average) }<em>/10</em>⋆
+
+			{ movie.release_date.split('-')[0] } - { Math.round(movie.vote_average) }<em>/10 </em>⋆
 		</span>
 	</div>
 }
