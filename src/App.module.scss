@@ -1,0 +1,27 @@
+.root {
+	width: 100%;
+	padding-top: 45px;
+	min-height: 100vh;
+	background: linear-gradient(to bottom, rgba(1, 21, 22, 0.7), rgba(0, 98, 102, 1)) no-repeat 0 45px, url("assets/moviebg.png") no-repeat 0 45px;
+	background-size: 100% 100%, 100% auto;
+}
+
+.topPrompt {
+	height: 450px;
+	display: grid;
+	grid-template-columns: minmax(auto, 550px);
+	align-items: center;
+	justify-content: center;
+
+	h2 {
+		text-align: center;
+		color: #fff;
+		font-weight: normal;
+		font-size: 2rem;
+		align-self: flex-end;
+	}
+
+	.searchContainer {
+		align-self: flex-start;
+	}
+}

@@ -1,25 +1,17 @@
-import './App.css'
+import Header from 'components/Header'
 import SearchInput from 'components/SearchInput'
+import styles from './App.module.scss'
 
-function App() {
+export default function App() {
 	return (
-		<div className="App">
-			<header className="App-header">
-				<p>
-					Welcome to IdealCouscous
-				</p>
-				<SearchInput/>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-			</header>
+		<div className={styles.root}>
+			<Header/>
+			<section className={styles.topPrompt}>
+				<h2>Trouvez le film idéal</h2>
+				<div className={styles.searchContainer}>
+					<SearchInput/>
+				</div>
+			</section>
 		</div>
 	)
 }
-
-export default App
