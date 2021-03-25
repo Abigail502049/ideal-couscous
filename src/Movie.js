@@ -46,6 +46,7 @@ export default function Home() {
 				{ stars }
 				<h3>{ movie.tagline }</h3>
 				<p>{ movie.overview }</p>
+				<span><a href={movie.homepage} target="_blank">Site officiel</a></span><br/>
 				<span>{ movie.release_date.split('-')[0] } - { movie.production_countries.map(x => x.name).join() } - { movie.genres.map(x => x.name).join(', ') }</span>
 			</div>
 		</section>
