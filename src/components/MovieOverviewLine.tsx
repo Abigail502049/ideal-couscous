@@ -30,7 +30,7 @@ export default function MovieOverviewLine({ movie }: { movie: Movie }) {
 			<span>
 				{ movie.release_date.split('-')[0] } - { Math.round(movie.vote_average) }<em>/10</em>⋆ - {movie.genre_ids.map(id => (
 					<CategoryPrint category={id} key={id} />
-				)).reduce((acc, x) =><>{acc}, {x}</>)}
+				)).reduce((acc, x) =><>{acc}, {x}</>, <></>)}
 			</span>
 		</div>
 	</div>
