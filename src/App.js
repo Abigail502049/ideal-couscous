@@ -1,4 +1,5 @@
 import './App.css'
+import SearchInput from 'components/SearchInput'
 
 function App() {
 	return (
@@ -7,6 +8,7 @@ function App() {
 				<p>
 					Welcome to IdealCouscous
 				</p>
+				<SearchInput/>
 				<a
 					className="App-link"
 					href="https://reactjs.org"
