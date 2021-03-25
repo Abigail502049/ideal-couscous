@@ -22,7 +22,7 @@ export default function Home() {
 		return () => {
 			abortCtrl.abort()
 		}
-	}, [])
+	}, [id])
 
 	if (movie === null) {
 		return <p>Chargement...</p>
