@@ -11,7 +11,7 @@ export default function CategoryPrint(props: { category: number }) {
 	const [printed, setPrinted] = useState('')
 
 	useEffect(() => {
-		if (window.genre_cache) {
+		if (typeof window.genre_cache !== 'undefined') {
 			setPrinted(window.genre_cache[props.category])
 		}
 
@@ -19,6 +19,7 @@ export default function CategoryPrint(props: { category: number }) {
 		queryTmdb('/genre/movie/list', [
 			['language', 'fr-FR']
 		], abortCtrl.signal).then(resp => {
+			window.genre_cache = {}
 			for (const x of resp.genres) {
 				window.genre_cache[x.id] = x.name
 			}
