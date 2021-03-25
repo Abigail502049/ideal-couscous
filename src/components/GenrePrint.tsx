@@ -31,7 +31,7 @@ export default function CategoryPrint(props: { category: number }) {
 		return () => {
 			abortCtrl.abort()
 		}
-	})
+	}, [props.category])
 
 	return <>
 		{ printed }
