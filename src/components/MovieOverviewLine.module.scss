@@ -1,0 +1,55 @@
+.container {
+	padding: 10px;
+	cursor: pointer;
+	height: 100px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+
+	color: #fff;
+	background: linear-gradient(to right, #094A64, #094A64);
+	transition: all .2s ease-out;
+
+	&:hover, &:focus {
+		background: linear-gradient(to right, #155296, #043770);
+	}
+}
+
+.moviePoster {
+	height: 100%;
+}
+
+.details {
+	display: grid;
+	grid-template-rows: repeat(3, 1fr);
+	align-items: center;
+	height: 100%;
+	padding: 0 10px;
+
+	> h2 {
+		align-self: start;
+		font-size: 1.2rem;
+		line-height: 1;
+		margin: 0;
+	}
+
+	> p {
+		margin: 0;
+		font-size: 0.95rem;
+		opacity: 0.7;
+	}
+
+	> span {
+		align-self: end;
+		opacity: 0.6;
+		font-size: 0.85rem;
+		font-weight: bold;
+
+		> em {
+			font-size: 0.7rem;
+			font-weight: normal;
+			font-style: italic;
+		}
+	}
+}

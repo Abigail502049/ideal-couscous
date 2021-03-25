@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import queryTmdb from 'utils/queryTmdb'
 import Header from 'components/Header'
 import SearchInput from 'components/SearchInput'
+import MovieOverviewLine from 'components/MovieOverviewLine'
 import styles from './App.module.scss'
 
 export default function App() {
@@ -20,7 +21,7 @@ export default function App() {
 			['language', 'fr-FR'],
 			['region', 'FR']
 		], abortCtrl.signal).then(resp => {
-			setSearchResults(() => resp.results.slice(0, 5))
+			setSearchResults(() => resp.results.slice(0, 4))
 		}).catch(() => {
 			// no-op
 		})
@@ -53,7 +54,7 @@ export default function App() {
 						}}
 					>
 						{searchResults.map(item =>
-							<p key={item.id}>{ item.title }</p>
+							<MovieOverviewLine key={item.id} movie={item} />
 						)}
 					</div>
 				</div>
