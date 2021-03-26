@@ -10,6 +10,7 @@
 	transition: transform .15s ease-out;
 
 	&:hover, &:focus {
+		filter: saturate(150%);
 		transform: scale(1.1);
 	}
 
