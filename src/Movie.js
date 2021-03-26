@@ -48,8 +48,12 @@ export default function Home() {
 
 	const stars = []
 
-	for (let i = 0; i < movie.vote_average / 4; i++) {
+	for (let i = 0; i < movie.vote_average / 2; i++) {
 		stars.push(<Star size={20}/>)
+	}
+
+	for (let i = 0; i <= (5 - stars.length); i++) {
+		stars.push(<Star size={20} className={styles.greyStar}/>)
 	}
 
 	return <>
