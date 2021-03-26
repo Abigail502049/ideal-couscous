@@ -115,7 +115,7 @@ export default function Home() {
 				</div>
 			</div>
 		</section>
-		<section className={styles.recommended}>
+		<section className={styles.recommended + ' recommended'}>
 			<h2>Recommandés</h2>
 			<div className={styles.movieList}>
 				{recommendedMovies.map(item => (
@@ -125,8 +125,8 @@ export default function Home() {
 				))}
 			</div>
 		</section>
-		<section className={styles.recommended}>
-			<h2>Dernières sorties</h2>
+		<section className={styles.recommended + " latest"}>
+			<h2 className="">Dernières sorties</h2>
 			<div className={styles.movieList}>
 				{lastMovies.map(item => (
 					<Link to={`/details/${item.id}`} key={item.id}>
@@ -135,7 +135,7 @@ export default function Home() {
 				))}
 			</div>
 		</section>
-		<section className={styles.recommended}>
+		<section className={styles.recommended + ' best'}>
 			<h2>Meilleurs films</h2>
 			<div className={styles.movieList}>
 				{bestMovies.map(item => (
