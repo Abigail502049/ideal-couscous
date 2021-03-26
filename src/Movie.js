@@ -16,7 +16,8 @@ export default function Movie() {
 	const { id } = useParams()
 	const [movie, setMovie] = useState(null)
 	const [video, setVideo] = useState(null)
-
+	const [genre, setGenre] = useState(null)
+	const [director, setDirector] = useState(null)
 	function addVideo() {
 		if (video !== null) return <iframe height={400} title="video embed" width={500} style={{ marginTop: 20 }} src={'https://www.youtube.com/embed/' + video}/>
 	}
@@ -27,6 +28,12 @@ export default function Movie() {
 			['language', 'fr-FR']
 		], abortCtrl.signal).then(resp => {
 			setMovie(resp)
+			const genreArray = []
+			for (const g of resp.genres) {
+				genreArray.push(g.name)
+			}
+			const genreString = genreArray.toString().replace(',', ', ')
+			setGenre(genreString)
 		}).catch(() => {
 			// no-op
 		})
@@ -36,6 +43,19 @@ export default function Movie() {
 		}).catch(() => {
 			// no-op
 		})
+
+		queryTmdb(`/movie/${encodeURIComponent(id)}`, [
+			['append_to_response', 'credits']
+		], abortCtrl.signal).then(resp => {
+			console.log(resp.credits.crew);
+			for (let crewKey of resp.credits.crew) {
+				if (crewKey.job === 'Director')
+					setDirector(crewKey.original_name)
+			}
+		}).catch(() => {
+			// no-op
+		})
+
 
 		return () => {
 			abortCtrl.abort()
@@ -71,7 +91,8 @@ export default function Movie() {
 				<span className={styles.rating}>{stars}</span>
 				<h3>{ movie.tagline }</h3>
 				<p>{ movie.overview }</p>
-
+				<h4>Réalisateur: {director}</h4>
+				<h4>Genre: {genre}</h4>
 				<span><a href={movie.homepage} target="_blank" rel="noreferrer">Site officiel</a></span><br/>
 				<span>{ movie.release_date.split('-')[0] } - { movie.production_countries.map(x => x.name).join() } - { movie.genres.map(x => x.name).join(', ') }</span><br/>
 				{
