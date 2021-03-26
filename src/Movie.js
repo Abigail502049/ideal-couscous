@@ -52,8 +52,10 @@ export default function Home() {
 		stars.push(<Star size={20}/>)
 	}
 
-	for (let i = 0; i <= (5 - stars.length); i++) {
-		stars.push(<Star size={20} className={styles.greyStar}/>)
+	if (stars.length < 5) {
+		for (let i = 0; i < (6 - stars.length); i++) {
+			stars.push(<Star size={20} className={styles.greyStar}/>)
+		}
 	}
 
 	return <>
