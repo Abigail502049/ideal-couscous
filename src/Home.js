@@ -10,6 +10,7 @@ export default function Home() {
 	const [searchTerms, setSearchTerms] = useState(null)
 	const [searchResults, setSearchResults] = useState([])
 	const [recommendedMovies, setRecommendedMovies] = useState([])
+	const [lastMovies, setLastMovies] = useState([])
 
 	useEffect(() => {
 		if (searchTerms === null) {
@@ -51,6 +52,23 @@ export default function Home() {
 		}
 	}, [])
 
+	useEffect(() => {
+		const abortCtrl = new AbortController()
+
+		queryTmdb('/movie/now_playing', [
+			['language', 'fr-FR'],
+			['region', 'FR']
+		], abortCtrl.signal).then(resp => {
+			setLastMovies(resp.results)
+		}).catch(() => {
+			// no-op
+		})
+
+		return () => {
+			abortCtrl.abort()
+		}
+	}, [])
+
 	return <>
 		<section className={styles.topPrompt}>
 			<h2>Trouvez le film idéal</h2>
@@ -83,6 +101,16 @@ export default function Home() {
 			<h2>Recommandés</h2>
 			<div className={styles.movieList}>
 				{recommendedMovies.map(item => (
+					<Link to={`/details/${item.id}`} key={item.id}>
+						<MovieCard movie={item} />
+					</Link>
+				))}
+			</div>
+		</section>
+		<section className={styles.recommended}>
+			<h2>Dernières sorties</h2>
+			<div className={styles.movieList}>
+				{lastMovies.map(item => (
 					<Link to={`/details/${item.id}`} key={item.id}>
 						<MovieCard movie={item} />
 					</Link>
