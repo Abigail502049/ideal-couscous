@@ -12,7 +12,7 @@ export default function Home() {
 	function addVideo(){
 		console.log("CURRENT: " +  video);
 		if (video !== null)
-			return <iframe height={'100%'} width={'50%'} src={'https://www.youtube.com/embed/' + video}/>
+			return <iframe height={400} title="video embed" width={500} style={{ marginTop: 20 }} src={'https://www.youtube.com/embed/' + video}/>
 	}
 
 	useEffect(() => {
@@ -42,7 +42,7 @@ export default function Home() {
 		return () => {
 			abortCtrl.abort()
 		}
-	}, [id])
+	}, [id,video])
 
 	if (movie === null ) {
 		return <p>Chargement...</p>

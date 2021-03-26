@@ -5,11 +5,10 @@ import SearchInput from 'components/SearchInput'
 import MovieOverviewLine from 'components/MovieOverviewLine'
 import MovieCard from 'components/MovieCard'
 import styles from './Home.module.scss'
-import GenrePrint from "./components/GenrePrint";
 
 export default function Home() {
 	const [searchTerms, setSearchTerms] = useState(null)
-	const [currentGenre, setGenre] = useState(null)
+	const [currentGenre] = useState(null)
 	const [searchResults, setSearchResults] = useState([])
 	const [recommendedMovies, setRecommendedMovies] = useState([])
 
@@ -61,12 +60,10 @@ export default function Home() {
 
 		}
 
-
-
 		return () => {
 			abortCtrl.abort()
 		}
-	}, [])
+	}, [currentGenre])
 
 	return <>
 		<section className={styles.topPrompt}>
