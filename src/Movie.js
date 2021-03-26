@@ -7,6 +7,13 @@ import styles from './Movie.module.scss'
 export default function Home() {
 	const { id } = useParams()
 	const [movie, setMovie] = useState(null)
+	const [video, setVideo] = useState(null)
+
+	function addVideo(){
+		console.log("CURRENT: " +  video);
+		if (video !== null)
+			return <iframe height={'100%'} width={'50%'} src={'https://www.youtube.com/embed/' + video}/>
+	}
 
 	useEffect(() => {
 		const abortCtrl = new AbortController()
@@ -19,12 +26,25 @@ export default function Home() {
 			// no-op
 		})
 
+		queryTmdb(`/movie/${encodeURIComponent(id)}/videos`, [
+
+		], abortCtrl.signal).then(resp => {
+			setVideo(resp.results[0].key)
+			console.log("VIDEO: " + video);
+			console.log('TEST ' + resp.results[0].key)
+
+		}).catch(() => {
+			// no-op
+		})
+
+
+
 		return () => {
 			abortCtrl.abort()
 		}
 	}, [id])
 
-	if (movie === null) {
+	if (movie === null ) {
 		return <p>Chargement...</p>
 	}
 
@@ -46,8 +66,14 @@ export default function Home() {
 				<span className={styles.rating}>{ stars}</span>
 				<h3>{ movie.tagline }</h3>
 				<p>{ movie.overview }</p>
+
+
+
 				<span><a href={movie.homepage} target="_blank" rel="noreferrer">Site officiel</a></span><br/>
 				<span>{ movie.release_date.split('-')[0] } - { movie.production_countries.map(x => x.name).join() } - { movie.genres.map(x => x.name).join(', ') }</span>
+				{
+					addVideo()
+				}
 			</div>
 		</section>
 	</>
