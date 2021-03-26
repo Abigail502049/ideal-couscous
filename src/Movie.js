@@ -4,7 +4,7 @@ import queryTmdb from 'utils/queryTmdb'
 import { Star } from 'react-feather'
 import styles from './Movie.module.scss'
 
-const convertMinutes = (mins) => {
+function convertMinutes(mins) {
 	let h = Math.floor(mins / 60)
 	let m = mins % 60
 	h = h < 10 ?  h : h
@@ -12,7 +12,7 @@ const convertMinutes = (mins) => {
 	return `${h}h${m}`
 }
 
-export default function Home() {
+export default function Movie() {
 	const { id } = useParams()
 	const [movie, setMovie] = useState(null)
 	const [video, setVideo] = useState(null)
@@ -49,12 +49,12 @@ export default function Home() {
 	const stars = []
 
 	for (let i = 0; i < movie.vote_average / 2; i++) {
-		stars.push(<Star size={20}/>)
+		stars.push(<Star size={20} key={i}/>)
 	}
 
 	if (stars.length < 5) {
 		for (let i = 0; i < (6 - stars.length); i++) {
-			stars.push(<Star size={20} className={styles.greyStar}/>)
+			stars.push(<Star size={20} className={styles.greyStar} key={`grey-${i}`}/>)
 		}
 	}
 
@@ -68,7 +68,7 @@ export default function Home() {
 			<h2>{ movie.title }</h2>
 			<div className={styles.details}>
 				<h3>Durée: {convertMinutes(movie.runtime)}</h3>
-				<span className={styles.rating}>{ stars}</span>
+				<span className={styles.rating}>{stars}</span>
 				<h3>{ movie.tagline }</h3>
 				<p>{ movie.overview }</p>
 

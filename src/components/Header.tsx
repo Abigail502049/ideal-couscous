@@ -9,7 +9,7 @@ export default function Header() {
 			<Link to="/">
 				<h1>Idealcouscous.tv</h1>
 			</Link>
-			<Select/>
 		</div>
+		<Select/>
 	</header>
 }
