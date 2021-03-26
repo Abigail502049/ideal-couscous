@@ -4,15 +4,21 @@ import queryTmdb from 'utils/queryTmdb'
 import { Star } from 'react-feather'
 import styles from './Movie.module.scss'
 
+const convertMinutes = (mins) => {
+	let h = Math.floor(mins / 60)
+	let m = mins % 60
+	h = h < 10 ?  h : h
+	m = m < 10 ?  m : m
+	return `${h}h${m}`
+}
+
 export default function Home() {
 	const { id } = useParams()
 	const [movie, setMovie] = useState(null)
 	const [video, setVideo] = useState(null)
 
-	function addVideo(){
-		console.log("CURRENT: " +  video);
-		if (video !== null)
-			return <iframe height={400} title="video embed" width={500} style={{ marginTop: 20 }} src={'https://www.youtube.com/embed/' + video}/>
+	function addVideo() {
+		if (video !== null) return <iframe height={400} title="video embed" width={500} style={{ marginTop: 20 }} src={'https://www.youtube.com/embed/' + video}/>
 	}
 
 	useEffect(() => {
@@ -20,29 +26,21 @@ export default function Home() {
 		queryTmdb(`/movie/${encodeURIComponent(id)}`, [
 			['language', 'fr-FR']
 		], abortCtrl.signal).then(resp => {
-			console.log(resp)
 			setMovie(resp)
 		}).catch(() => {
 			// no-op
 		})
 
-		queryTmdb(`/movie/${encodeURIComponent(id)}/videos`, [
-
-		], abortCtrl.signal).then(resp => {
+		queryTmdb(`/movie/${encodeURIComponent(id)}/videos`, [], abortCtrl.signal).then(resp => {
 			setVideo(resp.results[0].key)
-			console.log("VIDEO: " + video);
-			console.log('TEST ' + resp.results[0].key)
-
 		}).catch(() => {
 			// no-op
 		})
 
-
-
 		return () => {
 			abortCtrl.abort()
 		}
-	}, [id,video])
+	}, [id])
 
 	if (movie === null ) {
 		return <p>Chargement...</p>
@@ -53,6 +51,7 @@ export default function Home() {
 	for (let i = 0; i < movie.vote_average / 4; i++) {
 		stars.push(<Star size={20}/>)
 	}
+
 	return <>
 		<section className={styles.container}>
 			<img
@@ -67,22 +66,12 @@ export default function Home() {
 				<h3>{ movie.tagline }</h3>
 				<p>{ movie.overview }</p>
 
-
-
 				<span><a href={movie.homepage} target="_blank" rel="noreferrer">Site officiel</a></span><br/>
-				<span>{ movie.release_date.split('-')[0] } - { movie.production_countries.map(x => x.name).join() } - { movie.genres.map(x => x.name).join(', ') }</span>
+				<span>{ movie.release_date.split('-')[0] } - { movie.production_countries.map(x => x.name).join() } - { movie.genres.map(x => x.name).join(', ') }</span><br/>
 				{
 					addVideo()
 				}
 			</div>
 		</section>
 	</>
-}
-
-const convertMinutes = (mins) => {
-	let h = Math.floor(mins / 60);
-	let m = mins % 60;
-	h = h < 10 ?  h : h;
-	m = m < 10 ?  m : m;
-	return `${h}h${m}`;
 }
