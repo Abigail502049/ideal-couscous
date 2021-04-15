@@ -1,8 +1,11 @@
+import { useEffect } from 'react'
 import {
-	BrowserRouter as Router,
+	Router,
 	Switch,
 	Route
 } from 'react-router-dom'
+import { createBrowserHistory } from 'history'
+import ReactGA from 'react-ga'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import Home from './Home'
@@ -10,8 +13,18 @@ import Movie from './Movie'
 import Genre from './Genre'
 import styles from './App.module.scss'
 
+const history = createBrowserHistory()
+history.listen(location => {
+	ReactGA.set({ page: location.pathname+location.search })
+	ReactGA.pageview(location.pathname+location.search)
+})
+
 export default function App() {
-	return <Router>
+	useEffect(() => {
+		ReactGA.pageview(window.location.pathname+window.location.search)
+	}, [])
+
+	return <Router history={history}>
 		<div className={styles.root}>
 			<Header/>
 			<Switch>
