@@ -47,7 +47,6 @@ export default function Movie() {
 		queryTmdb(`/movie/${encodeURIComponent(id)}`, [
 			['append_to_response', 'credits']
 		], abortCtrl.signal).then(resp => {
-			console.log(resp.credits.crew);
 			for (let crewKey of resp.credits.crew) {
 				if (crewKey.job === 'Director')
 					setDirector(crewKey.original_name)
